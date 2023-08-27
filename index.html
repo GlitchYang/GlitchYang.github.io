@@ -77,6 +77,99 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-如何创建博客" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/08/27/%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E5%8D%9A%E5%AE%A2/" class="article-date">
+  <time class="dt-published" datetime="2023-08-27T14:47:03.322Z" itemprop="datePublished">2023-08-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="如何创建博客"><a href="#如何创建博客" class="headerlink" title="如何创建博客"></a>如何创建博客</h2><h3 id="一、Github"><a href="#一、Github" class="headerlink" title="一、Github"></a>一、Github</h3><p>Github是开发者的代码仓库，一个开源和分享社区。<br>本文前提是已注册<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=github%E8%B4%A6%E5%8F%B7&spm=1001.2101.3001.7020">github账号</a>。</p>
+<h3 id="二、配置博客仓库"><a href="#二、配置博客仓库" class="headerlink" title="二、配置博客仓库"></a>二、配置博客仓库</h3><p>假设用户名为MyName</p>
+<p>进入个人主页(<a target="_blank" rel="noopener" href="https://github.com/%E7%94%A8%E6%88%B7%E5%90%8D)%EF%BC%8C%E9%80%89%E6%8B%A9Repositories%EF%BC%8C%E7%82%B9%E5%87%BBNew">https://github.com/用户名)，选择Repositories，点击New</a><br>Repository name填入MyName.github.io，即MyName&#x2F;MyName.github.io，点击Create Repository</p>
+<h3 id="三、创建SSH-key"><a href="#三、创建SSH-key" class="headerlink" title="三、创建SSH key"></a>三、创建SSH key</h3><p>打开终端，输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;你的邮件地址&quot;</span><br></pre></td></tr></table></figure>
+
+<p>然后连续4次敲入回车键，完成创建。<br>打开~&#x2F;目录，寻找.ssh目录，这是一个隐藏目录，需要在Find中设置一下，把所有隐藏的目录显示出来才能看到。在Windows系统下的目录应该是C:\Users\用户名。<br>在.ssh目录中，以文本方式打开id_rsa.pub文件，并复制里面的内容。</p>
+<p>然后打开github，点击右上角图形，在弹出菜单中选技Settings，进入设置页面。<br>选择SSH and GPG keys菜单，在SSH keys项上点击New SSH key，在弹出框中粘贴刚才id_rsa.pub的文件内容。</p>
+<p>现在，可以测试一下是否成功了，在终端中输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+<p>回车，然后再输入yes。</p>
+<h3 id="四、在本地生成博客内容"><a href="#四、在本地生成博客内容" class="headerlink" title="四、在本地生成博客内容"></a>四、在本地生成博客内容</h3><ol>
+<li>在本地电脑上建一个博客目录，比如~&#x2F;blog&#x2F;，在终端上进入这个目录，然后运行</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br><span class="line">hexo generate</span><br><span class="line">hexo server//如果上述命令运行失败，有可能是国内与github的连接不太稳定，可以尝试重复几次，直到成功。</span><br><span class="line">每次写好文章之后，也可以运行这个命令，来预览文章的效果。</span><br></pre></td></tr></table></figure>
+
+<p>hexo server命令运行成功后，输出如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">INFO  Validating config</span><br><span class="line">INFO  Start processing</span><br><span class="line">INFO  Hexo is running at http://localhost:4000/ . Press Ctrl+C to stop.</span><br></pre></td></tr></table></figure>
+
+<p>在浏览器地址栏里打开 <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a> ，即可看到一个博客DEMO页面<br>可以按 control+C，结束服务。</p>
+<p>2.修改_config.yml<br>在博客目录下，找到_config.yml文件，找到 Site模块，修改</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Site</span><br><span class="line"></span><br><span class="line">title: &#x27;给博客取个大标题&#x27;</span><br><span class="line">subtitle: &#x27;给博客取个副标题&#x27;</span><br><span class="line">description: &#x27;&#x27;</span><br><span class="line">keywords:</span><br><span class="line">author: </span><br><span class="line">language: en</span><br><span class="line">timezone: &#x27;&#x27;</span><br></pre></td></tr></table></figure>
+
+
+<p>在这里可以修改网站的标题、副标题、描述、关健字、作者、语言等信息。</p>
+<p>另外，找到最下面的Deployment模块<br>原始内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Deployment</span><br><span class="line">Docs: https://hexo.io/docs/one-command-deployment</span><br><span class="line">deploy:</span><br><span class="line">  type: &#x27;&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>修改如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Deployment</span><br><span class="line"></span><br><span class="line">Docs: https://hexo.io/docs/one-command-deployment</span><br><span class="line"></span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: git@github.com:xxx/xxx.github.io.git</span><br><span class="line">  branch: main</span><br></pre></td></tr></table></figure>
+
+<p>这里有几点需要注意一下</p>
+<p>type,repository,branch三个关健字，前面都有两个空格，冒号后面有一个空格，这里不能把空格删掉<br>type和branch后面的值都是固定的，repository后面的值，需要到github上找你创建的那个仓库，点击Code按钮，复制git的链接。（为了后面提交代码方便，尽量复制git链接，而不是https链接）</p>
+<h3 id="五、初始化本地git仓库"><a href="#五、初始化本地git仓库" class="headerlink" title="五、初始化本地git仓库"></a>五、初始化本地git仓库</h3><p>设置Git的user name和email：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;wuyanqina&quot;</span><br><span class="line">$ git config --global user.email &quot;greenovia@qq.com&quot;（换成你的邮箱地址）</span><br></pre></td></tr></table></figure>
+
+<p>在本地的hexo init生成的文件夹中初始化git仓库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br></pre></td></tr></table></figure>
+
+<p>将本地仓库和远程仓库连接（这一步骤可以不做）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add origin git@github.com:your_github_user_name/your_github_user_name.github.io.git(远程仓库ssh地址) </span><br></pre></td></tr></table></figure>
+
+<p>做完以上这些步骤，说明你的仓库可以使用ssh方式来上传下载代码，而不需要输入用户名和密码了</p>
+<h3 id="六、博客上线"><a href="#六、博客上线" class="headerlink" title="六、博客上线"></a>六、博客上线</h3><ol>
+<li>安装自动部署发布工具</li>
+</ol>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<p>  然后在终端依次输入</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g（生成）</span><br><span class="line">hexo d（上传）//有报错</span><br></pre></td></tr></table></figure>
+
+<p>接下来我们就成功把本地内容上传到github了<br>上传成功以后，我们就算搭建好了！上自己的网址看看吧<br>网址是我们之前设的仓库名：用户名.github.io</p>
+<ol start="2">
+<li>写文章<br>我们在Blog目录下，在终端中输入以下命令，就可以生成新的文章文件</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new 文章标题</span><br></pre></td></tr></table></figure>
+
+<p>文章是.md格式，在我们的Blog文件夹中的source&#x2F;_posts中。<br>我个人是使用有道云笔记录来编辑md文件，支持所见即所得。</p>
+<ol start="3">
+<li>上传文章<br>  文章写好以后，还是输入，即可发布。</li>
+</ol>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g（生成）</span><br><span class="line">hexo d（上传）</span><br></pre></td></tr></table></figure>
+
+<p>至此，我们就成功搭建好基本的博客了，剩下的就是对博客的一些优化和美化了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/08/27/%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E5%8D%9A%E5%AE%A2/" data-id="clltke3as0000rc1s111u5gv0" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Cpp" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/08/27/Cpp/" class="article-date">
@@ -587,6 +680,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2023/08/27/%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E5%8D%9A%E5%AE%A2/">(no title)</a>
+          </li>
         
           <li>
             <a href="/2023/08/27/Cpp/">Cpp</a>
